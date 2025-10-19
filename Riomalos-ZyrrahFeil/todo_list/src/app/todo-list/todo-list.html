@@ -1,1 +1,52 @@
-<p>todo-list works!</p>
+<div class="form-container">
+  <form [formGroup]="todoForm">
+
+    <label for="taskName">Task Name:</label>
+    <input
+        id="taskName"
+        formControlName="taskName"
+        type="text"
+        placeholder="e.g. Complete Final Project" />
+
+    @if(taskNameControl.touched && taskNameControl.errors?.['required']) {
+      <span class="error">Task Name is required</span>
+    }
+    @if(taskNameControl.touched && taskNameControl.errors?.['minTaskLength']) {
+      <span class="error">{{ taskNameControl.errors?.['minTaskLength'] }}</span>
+    }
+
+    <fieldset [formGroup]="classDetailsControl">
+      <legend>Class Details:</legend>
+      
+      <label for="className">Class:</label>
+      <select id="className" formControlName="className">
+        <option value="">--Select Class--</option>
+        @for(class of classOptions; track class) {
+          <option [value]="class">{{ class }}</option>
+        }
+      </select>
+      @if(classNameControl.touched && classNameControl.errors?.['required']) {
+        <span class="error">Class is required</span>
+      }
+
+      <label for="status">Status:</label>
+      <select id="status" formControlName="status">
+        <option value="">--Select Status--</option>
+        @for(status of statusOptions; track status) {
+          <option [value]="status">{{ status }}</option>
+        }
+      </select>
+      @if(statusControl.touched && statusControl.errors?.['required']) {
+        <span class="error">Status is required</span>
+      }
+    </fieldset>
+
+    <label for="deadline">Deadline:</label>
+    <input id="deadline" formControlName="deadline" type="date" />
+    @if(deadlineControl.touched && deadlineControl.errors?.['required']) {
+      <span class="error">Deadline is required</span>
+    }
+
+    <button type="button" (click)="handleAdd()">ADD TASK</button>
+  </form>
+</div>
