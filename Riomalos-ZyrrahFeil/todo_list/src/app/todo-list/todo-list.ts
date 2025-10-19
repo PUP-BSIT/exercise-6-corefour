@@ -45,7 +45,7 @@ export class TodoListComponent {
         className: ['', [Validators.required]],
         status: ['', [Validators.required]],
       }),
-      deadline: ['', [Validators.required]],
+      deadline: ['', [Validators.required, this.futureDateValidator()]],
     });
   }
 
@@ -81,6 +81,23 @@ export class TodoListComponent {
       if (task && task.trim().length < min) {
         return { minTaskLength:
           `Task Name must be descriptive (at least ${min} characters).` }; }
+      return null;
+    };
+  }
+
+  futureDateValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      if (!value) return null;
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const inputDate = new Date(value);
+
+      if (inputDate < today) {
+        return { pastDate: 'Deadline cannot be in the past.' };
+      }
+
       return null;
     };
   }

@@ -1,6 +1,5 @@
 <div class="form-container">
   <form [formGroup]="todoForm">
-
     <label for="taskName">Task Name:</label>
     <input
         id="taskName"
@@ -43,8 +42,13 @@
 
     <label for="deadline">Deadline:</label>
     <input id="deadline" formControlName="deadline" type="date" />
+
     @if(deadlineControl.touched && deadlineControl.errors?.['required']) {
       <span class="error">Deadline is required</span>
+    }
+
+    @if(deadlineControl.touched && deadlineControl.errors?.['pastDate']) {
+      <span class="error">{{ deadlineControl.errors?.['pastDate'] }}</span>
     }
 
     <button type="button" (click)="handleAdd()">ADD TASK</button>
@@ -64,8 +68,10 @@
         <div class="powers">
           Status:
           @if(entry.classDetails.status === 'Done') { <span>Done!</span> }
-          @if(entry.classDetails.status === 'In Progress') { <span>In Progress</span> }
-          @if(entry.classDetails.status === 'Not Started') { <span>Not Started</span> }
+          @if(entry.classDetails.status === 'In Progress') {
+               <span>In Progress</span> }
+          @if(entry.classDetails.status === 'Not Started') {
+               <span>Not Started</span> }
         </div>
       </li>
     } @empty {
