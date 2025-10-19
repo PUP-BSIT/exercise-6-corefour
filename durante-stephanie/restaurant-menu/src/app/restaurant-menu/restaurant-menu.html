@@ -1,1 +1,84 @@
-<p>restaurant-menu works!</p>
+<div class="page-container">
+  <div class="form-container">
+    <h2>Add a Menu Item</h2>
+
+    <form [formGroup]="menuForm">
+      <div>
+        <label>Dish Name:</label>
+        <input
+          type="text"
+          formControlName="dishName"
+          placeholder="Dish Name"
+          (input)="checkFields()" />
+      </div>
+
+      <div>
+        <label>Category:</label>
+        <select formControlName="category" (change)="checkFields()">
+          <option value="" disabled>-- Select Category --</option>
+          <option value="Appetizer">Appetizer</option>
+          <option value="Main Course">Main Course</option>
+          <option value="Dessert">Dessert</option>
+          <option value="Beverage">Beverage</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Price (₱):</label>
+        <input
+          type="number"
+          formControlName="price"
+          placeholder="Price"
+          (input)="checkFields()" />
+      </div>
+
+      <div>
+        <label>Calories:</label>
+        <input
+          type="number"
+          formControlName="calories"
+          placeholder="Calories"
+          (input)="checkFields()" />
+      </div>
+
+      <div>
+        <label>Type:</label>
+        <select formControlName="type" (change)="checkFields()">
+          <option value="" disabled>-- Select Type --</option>
+          <option value="Vegetarian">Vegetarian</option>
+          <option value="Meat">Meat</option>
+          <option value="Seafood">Seafood</option>
+        </select>
+      </div>
+
+      @if(showWarning()) {
+        <p class="error-message">
+          ⚠️ Please fill out all fields before adding!
+        </p>
+      }
+
+      <div class="button-container">
+        <button type="button" (click)="addMenuItem()">ADD MENU</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="list-container">
+    <h3>Restaurant Menu</h3>
+
+    @if(menuList().length > 0) {
+      @for(item of menuList(); track $index) {
+        <div class="menu-card">
+          <p>
+            <strong>{{ item.dishName }}</strong>
+            ({{ item.category }})
+          </p>
+          <p>Type: {{ item.type }}</p>
+          <p>₱{{ item.price }} | {{ item.calories }} cal</p>
+        </div>
+      }
+    } @else {
+      <p>No menu items yet.</p>
+    }
+  </div>
+</div>
