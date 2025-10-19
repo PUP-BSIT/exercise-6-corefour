@@ -1,0 +1,45 @@
+.container {
+  width: 400px;
+  margin: 20px auto;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+input, select, button {
+  width: 100%;
+  margin-top: 4px;
+  margin-bottom: 10px;
+  padding: 6px;
+}
+
+button {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #2563eb;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+.favorite-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.favorite-field input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
