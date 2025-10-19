@@ -55,7 +55,9 @@
 
     @for (item of watchlistItems; track item.title) {
     <div class="watchlist-item" [class.watched]="item.watched">
-      <h4>{{ item.title }} <span class="item-type">({{ item.type }})</span></h4>
+      <h4>
+        {{ item.title }} <span class="item-type">({{ item.type }})</span>
+      </h4>
       <p><strong>Genre:</strong> {{ item.genre }}</p>
 
       @if (item.platform) {
