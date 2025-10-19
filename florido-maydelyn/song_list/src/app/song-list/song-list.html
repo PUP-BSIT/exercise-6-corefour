@@ -1,0 +1,84 @@
+<div class="container">
+  <h2>🎵 Favorite Songs List</h2>
+
+  <form [formGroup]="songForm" (ngSubmit)="addSong()">
+    <div>
+      <label>Title:</label>
+      <input type="text" formControlName="title" />
+      @if (title?.touched && title?.invalid) {
+        @if (title?.errors?.['required']) {
+          <small class="error">Title is required.</small>
+        }
+        @if (title?.errors?.['forbiddenWord']) {
+          <small class="error">{{ title?.errors?.['forbiddenWord'] }}</small>
+        }
+      }
+    </div>
+
+    <div>
+      <label>Artist:</label>
+      <input type="text" formControlName="artist" />
+      @if (artist?.touched && artist?.invalid) {
+        <small class="error">Artist is required.</small>
+      }
+    </div>
+
+    <div>
+      <label>Genre:</label>
+      <select formControlName="genre">
+        <option value="">--Select--</option>
+        <option>Pop</option>
+        <option>Rock</option>
+        <option>Jazz</option>
+        <option>Classical</option>
+        <option>Hip-hop</option>
+      </select>
+      @if (genre?.touched && genre?.invalid) {
+        <small class="error">Genre is required.</small>
+      }
+    </div>
+
+    <div>
+      <label>Year:</label>
+      <input type="number" formControlName="year" />
+
+      @if (year?.touched && year?.invalid) {
+        @if (year?.errors?.['required']) {
+          <small class="error">Year is required.</small>
+        }
+        @if (year?.errors?.['min']) {
+          <small class="error">Year cannot be before 1900.</small>
+        }
+        @if (year?.errors?.['max']) {
+          <small class="error">Year cannot be in the future.</small>
+        }
+      }
+    </div>
+
+    <div class="favorite-field">
+      <label>
+        <input type="checkbox" formControlName="favorite" />
+        Mark as Favorite
+      </label>
+    </div>
+
+    <button type="submit">ADD SONG</button>
+  </form>
+
+  <hr />
+
+  <h3>🎧 Added Songs</h3>
+  @if (songs.length > 0) {
+    <ul>
+      @for (song of songs; track song.title) {
+        <li>
+          "{{ song.title }}" by {{ song.artist }} ({{ song.genre }},
+              {{ song.year }})
+          @if (song.favorite) { <span>❤️</span> }
+        </li>
+      }
+    </ul>
+  } @else {
+    <p>No songs added yet.</p>
+  }
+</div>
