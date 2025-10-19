@@ -8,6 +8,15 @@ type Status = 'Not Started' | 'In Progress' | 'Done';
 type ClassName = 'Advance Programming' | 'App Dev.' | 'DBA' | 'Mobile Dev' |
     'Project Management' | 'System Ad.';
 
+export type TodoEntry = {
+  taskName: string;
+  classDetails: {
+    className: ClassName;
+    status: Status;
+  };
+  deadline: string;
+};
+
 @Component({
   selector: 'app-todo-list',
   standalone: true,
@@ -17,6 +26,8 @@ type ClassName = 'Advance Programming' | 'App Dev.' | 'DBA' | 'Mobile Dev' |
 })
 export class TodoListComponent {
   formBuilder = inject(FormBuilder);
+
+  entriesSignal = signal<TodoEntry[]>([]);
 
   classOptions: ClassName[] = ['Advance Programming', 'App Dev.', 'DBA',
       'Mobile Dev', 'Project Management', 'System Ad.'];
@@ -40,7 +51,9 @@ export class TodoListComponent {
 
   handleAdd(): void {
     if (this.todoForm.valid) {
-      console.log('Valid form data:', this.todoForm.getRawValue());
+      const entry: TodoEntry = this.todoForm.getRawValue();
+      this.entriesSignal.update(list => [...list, entry]);
+
       this.todoForm.reset({
         taskName: '',
         classDetails: { className: '', status: '' },
