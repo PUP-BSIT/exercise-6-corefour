@@ -61,3 +61,65 @@ legend {
   font-weight: bold;
   color: #005fa3;
 }
+
+.entry-list {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  max-width: 800px;
+  margin: 2rem auto 0;
+
+  h2 {
+    color: #335070;
+    text-align: center;
+    border-bottom: 2px solid #e0e7ee;
+    padding-bottom: 10px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .entry-card {
+    background-color: #f0f7f9;
+    border-left: 5px solid #007bff;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+
+    strong {
+      font-size: 1.1rem;
+      color: #333;
+    }
+
+    .position {
+      font-weight: bold;
+      color: #007bff;
+      margin-left: 10px;
+    }
+
+    .powers {
+      margin-top: 0.5rem;
+      font-weight: 500;
+      display: inline-block;
+      margin-left: 10px;
+    }
+
+    .powers span {
+      display: inline-block;
+      background-color: #28a745;
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.875rem;
+    }
+  }
+
+  [data-status="Not Started"] { border-left-color: #dc3545; } 
+  [data-status="In Progress"] { border-left-color: #ffc107; } 
+  [data-status="Done"] { border-left-color: #28a745; } 
+}

@@ -1,6 +1,5 @@
 <div class="form-container">
   <form [formGroup]="todoForm">
-
     <label for="taskName">Task Name:</label>
     <input
         id="taskName"
@@ -43,10 +42,40 @@
 
     <label for="deadline">Deadline:</label>
     <input id="deadline" formControlName="deadline" type="date" />
+
     @if(deadlineControl.touched && deadlineControl.errors?.['required']) {
       <span class="error">Deadline is required</span>
     }
 
+    @if(deadlineControl.touched && deadlineControl.errors?.['pastDate']) {
+      <span class="error">{{ deadlineControl.errors?.['pastDate'] }}</span>
+    }
+
     <button type="button" (click)="handleAdd()">ADD TASK</button>
   </form>
+</div>
+
+<div class="entry-list">
+  <h2>Task List</h2>
+  <ul>
+    @for(entry of entriesSignal(); track entry.taskName) {
+      <li class="entry-card" [attr.data-status]="entry.classDetails.status">
+        <strong>Task: {{ entry.taskName }} ||</strong> 
+        <strong>Due: {{ entry.deadline | date:'shortDate' }} ||</strong>
+
+        <span class="position">{{ entry.classDetails.className }}</span>
+
+        <div class="powers">
+          Status:
+          @if(entry.classDetails.status === 'Done') { <span>Done!</span> }
+          @if(entry.classDetails.status === 'In Progress') {
+               <span>In Progress</span> }
+          @if(entry.classDetails.status === 'Not Started') {
+               <span>Not Started</span> }
+        </div>
+      </li>
+    } @empty {
+      <p>No academic tasks added. Use the form above to add a new task.</p>
+    }
+  </ul>
 </div>
