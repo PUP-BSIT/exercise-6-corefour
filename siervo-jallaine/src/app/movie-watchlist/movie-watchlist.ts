@@ -31,9 +31,9 @@ export class MovieWatchlistComponent implements OnInit {
 
   ngOnInit(): void {
     this.watchlistForm = this.fb.group({
-      title: ['', Validators.required],
-      type: ['Movie', Validators.required],
-      genre: ['Action', Validators.required],
+      title: ['', { validators: [Validators.required] }],
+      type: ['Movie', { validators: [Validators.required] }],
+      genre: ['Action', { validators: [Validators.required] }],
       platform: [''],
       watched: [false]
     });
@@ -45,7 +45,6 @@ export class MovieWatchlistComponent implements OnInit {
     }
 
     this.watchlistItems.unshift(this.watchlistForm.value);
-
     this.watchlistForm.reset({
       title: '',
       type: 'Movie',
