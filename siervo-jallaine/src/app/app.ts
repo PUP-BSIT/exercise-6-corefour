@@ -1,12 +1,13 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { MovieWatchlistComponent } from './movie-watchlist/movie-watchlist';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [MovieWatchlistComponent],
+  standalone: true,
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = signal('siervo-jallaine');
+  protected readonly title = signal('exercise_6');
 }
