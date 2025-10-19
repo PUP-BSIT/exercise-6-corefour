@@ -1,0 +1,71 @@
+<div class="watchlist-container">
+  <h2>Movie | TV Watchlist</h2>
+
+  <form [formGroup]="watchlistForm" (ngSubmit)="addItem()"
+      class="watchlist-form">
+    <div class="form-field">
+      <label for="title">Title</label>
+      <input id="title" type="text" formControlName="title"
+          placeholder="e.g., Game of Thrones">
+    </div>
+
+    <div class="form-field">
+      <label for="type">Type</label>
+      <select id="type" formControlName="type">
+        @for (type of typeOptions; track type) {
+        <option [value]="type">{{ type }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="form-field">
+      <label for="genre">Genre</label>
+      <select id="genre" formControlName="genre">
+        @for (genre of genreOptions; track genre) {
+        <option [value]="genre">{{ genre }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="form-field">
+      <label for="platform">Where to watch (Optional)</label>
+      <input id="platform" type="text" formControlName="platform"
+          placeholder="e.g., Netflix, Cinema">
+    </div>
+
+    <div class="form-field checkbox-field">
+      <input id="watched" type="checkbox" formControlName="watched">
+      <label for="watched">Already Watched?</label>
+    </div>
+
+    <button type="submit" [disabled]="watchlistForm.invalid">
+      ADD TO LIST
+    </button>
+  </form>
+
+  <hr>
+
+  <h3>My Watchlist</h3>
+  <div class="item-list">
+    @if (watchlistItems.length === 0) {
+    <div class="empty-list">
+      Your watchlist is empty. Add a movie or show above!
+    </div>
+    }
+
+    @for (item of watchlistItems; track item.title) {
+    <div class="watchlist-item" [class.watched]="item.watched">
+      <h4>
+        {{ item.title }} <span class="item-type">({{ item.type }})</span>
+      </h4>
+      <p><strong>Genre:</strong> {{ item.genre }}</p>
+
+      @if (item.platform) {
+      <p><strong>Platform:</strong> {{ item.platform }}</p>
+      }
+
+      <span>{{ item.watched ? '✅ Watched' : '⏳ Pending' }}</span>
+    </div>
+    }
+  </div>
+</div>
